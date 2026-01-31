@@ -4,8 +4,8 @@ library(mgcv)
 library(dplyr)
 library(ggplot2)
 ggpairs(
-  YX,
-  columns = names(YX),
+  active_df,
+  columns = names(active_df),
   title = "Pairwise Relationships with GAM Smoothers",
   lower = list(
 	continuous = wrap(
