@@ -1,8 +1,5 @@
-# Load required package
 library(mgcv)
 
-# fit the model with increased basis dimension (k)
-# Increase k to 15 for all smooth terms to allow more flexibility
 model_increased_k <- gam(RGDP.PER.CAP.LC ~ s(RealFunExp, k = 15) + 
 						  s(RealEquiExp, k = 15) + 
 						  s(TotExp, k = 15) + 
