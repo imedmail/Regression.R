@@ -44,20 +44,25 @@ panel_edf <- function(data, mapping, ..., k = 10, min_points = 5) {
 	r2_val <- if (!is.null(sm$r.sq) && length(sm$r.sq) > 0) {
 	  round(sqrt(sm$r.sq), 2)
 	} else {
-	  round(1, 0)
+	  round(0, 0)
 	}
-	p_val <- if (!is.null(sm$s.table[, "p-value"]) && length(sm$s.table[, "p-value"]) > 0) {
-	  round(sm$s.table[, "p-value"], 2)
+	dev_exp <- if (!is.null(sm$dev.expl) && length(sm$dev.expl) > 0) {
+	  round(sm$dev.expl, 2)
 	} else {
 	  round(0, 0)
+	}
+	p_val <- if (!is.null(sm$s.table[, "p-value"]) && length(sm$s.table[, "p-value"]) > 0) {
+	  round(sm$s.table[, "p-value"], dev_exp)
+	} else {
+	  round(1, 0)
 	}
   }
 
   ggplot() +
 	annotate("text",
 			 x = 0.5, y = 0.5,
-			 label = paste("EDF=", edf_val,"(", p_val,")\nR-adj=", r2_val, "(", x_var,")"),
-			 size = 4,
+			 label = paste("EDF=", edf_val,"(", p_val,")\nR-adj=", r2_val), #, "(", dev_exp ,")"
+			 size = 3,
 			 color = ifelse(is.numeric(edf_val) || is.na(r2_val) || p_val >0.1, "darkblue", "red"),
 			 fontface = ifelse(is.numeric(edf_val) || is.na(r2_val) || p_val >0.1, "plain", "italic")) +
 	theme_void()
